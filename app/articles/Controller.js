@@ -64,45 +64,8 @@ class ArticleController {
     await Article.destroy({
       where: { id },
     });
+
     return res.redirect("/admin/articles");
-  }
-
-  async showBySlug(req, res) {
-    const { slug } = req.params;
-    try {
-      const article = await Article.findOne({
-        where: { slug },
-      });
-      if (!article) return res.redirect("/");
-      const categories = await Category.findAll();
-      return res.render("home/article", { article, categories });
-    } catch (err) {
-      return res.redirect("/");
-    }
-  }
-
-  async paginate(req, res) {
-    const { page } = req.params;
-    const limit = 4;
-    let offset = 0;
-
-    if (isNaN(page) || page == 1) offset = 0;
-    else offset = (parseInt(page) - 1) * limit;
-
-    const articles = await Article.findAndCountAll({
-      order: [["id", "DESC"]],
-      limit,
-      offset,
-    });
-
-    let next = offset + limit < articles.count;
-    const categories = await Category.findAll();
-    return res.render("home/page", {
-      articles,
-      next,
-      categories,
-      page: parseInt(page),
-    });
   }
 }
 

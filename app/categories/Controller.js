@@ -56,30 +56,6 @@ class CategoryController {
     });
     return res.redirect("/admin/categories");
   }
-
-  async showBySlug(req, res) {
-    const { slug } = req.params;
-    try {
-      const category = await Category.findOne({
-        where: { slug },
-        include: [{ model: Article }],
-      });
-      console.log(category);
-      if (!category) return res.redirect("/");
-
-      const categories = await Category.findAll({
-        order: ["title"],
-      });
-
-      return res.render("home/index", {
-        category,
-        articles: category.articles,
-        categories,
-      });
-    } catch (err) {
-      return res.redirect("/");
-    }
-  }
 }
 
 module.exports = new CategoryController();
