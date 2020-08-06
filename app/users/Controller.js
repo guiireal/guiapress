@@ -40,15 +40,21 @@ class UserController {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
 
-    if (!user) return res.redirect("/admin/login");
+    if (!user) return res.redirect("/admin/users/login");
 
     if (!bcrypt.compareSync(password, user.password))
-      return res.redirect("/admin/login");
+      return res.redirect("/admin/users/login");
 
     req.session.user = {
       id: user.id,
       email,
     };
+    return res.redirect("/admin/articles");
+  }
+
+  logout(req, res) {
+    req.session.user = undefined;
+    return res.redirect("/");
   }
 }
 

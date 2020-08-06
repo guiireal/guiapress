@@ -9,8 +9,9 @@ const UserController = require("./Controller");
 routes.get("/", adminAuthMiddleware, UserController.index);
 routes.get("/create", adminAuthMiddleware, UserController.create);
 routes.get("/login", UserController.login);
+routes.get("/logout", UserController.logout);
 
 routes.post("/", adminAuthMiddleware, UserController.store);
-routes.get("/login", UserController.authenticate);
+routes.post("/login", UserController.authenticate);
 
 module.exports = routes;
