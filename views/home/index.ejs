@@ -1,0 +1,33 @@
+<%- include('../_partials/header.ejs') %>
+<%- include('../_partials/navbar-home.ejs') %>
+
+<div class="container">
+    <hr>
+    <div class="jumbotron">
+        <h1 class="display-3">Bem-vindo!</h1>
+        <p class="lead">Este é um simples blog do Guilherme França!</p>
+        <hr class="my-2">
+        <p>Temos um blog bem intuitivo e cheio de recursos novos!</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Ler mais</a>
+        </p>
+    </div>
+    <% articles.forEach(article => { %>
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2><%= article.title %></h2>
+        </div>
+        <div class="card-body">
+            <a href="/<%= article.slug %>" class="btn btn-primary">Ler artigo</a>
+        </div>
+    </div>
+    <% }) %>
+    <div class="row">
+        <div class="col-12">
+            <a class="float-right" href="/articles/page/2">Próxima >></a>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<%- include('../_partials/footer.ejs') %>

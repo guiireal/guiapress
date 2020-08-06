@@ -1,0 +1,48 @@
+<%- include('../../_partials/header.ejs') %>
+<%- include('../../_partials/navbar.ejs') %>
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <a class="btn btn-success" href="/admin/articles/create">Criar novo artigo</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% articles.forEach(article => { %>
+            <tr>
+                <td><%= article.id %></td>
+                <td><%= article.title %></td>
+                <td><%= article.slug %></td>
+                <td><%= article.category.title %></td>
+                <td>
+                    <a href="/admin/articles/<%= article.id %>/edit" class="btn btn-warning">Editar</a>
+                    <form method="POST" class="d-inline" action="/admin/articles/<%= article.id %>/destroy"
+                        onsubmit="confirmDestroy(event, this)">
+                        <button class="btn btn-danger">
+                            Excluir
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function confirmDestroy(event, form) {
+        event.preventDefault();
+        if (confirm("Você quer deletar este artigo?")) {
+            form.submit();
+        }
+    }
+</script>
+<%- include('../../_partials/scripts.ejs') %>
+<%- include('../../_partials/footer.ejs') %>
